@@ -26,6 +26,14 @@ async function getCharacters() {
     //     console.log("===========================================");
     // }
 
+    // Using .map() instead loop forEach
+    // allCharacters.map((singleCharacter) => {
+    //     console.log("Name: " + singleCharacter.name + ", "),
+    //     console.log("Address: " + singleCharacter.address.street + ", "),
+    //     console.log("\t " + singleCharacter.address.suite + ", "),
+    //     console.log("\t " + singleCharacter.address.zipcode + " " + singleCharacter.address.city),
+    //     console.log("===========================================")}
+    // );
 
     return allCharacters;
 }
@@ -60,12 +68,16 @@ async function findCharacterByEmail(email) {
     // Calling my first function to get datas
     const datas = await getCharacters();
 
+    const characterFound = datas.filter((character) => character.email === email);
+
+    // console.log(characterFound);
+
     // Looping over results and checking each email with submitted email
-    for (const character of datas) {
+    /*     for (const character of datas) {
         if (character.email === email) {
             console.log(character.name);
         }
-    }
+    } */
 }
 
 async function findCharacterByName(name) {
@@ -75,14 +87,18 @@ async function findCharacterByName(name) {
     // Using Regex taking submitted name as parameter + flags gi for global and case insensitive
     const regex = new RegExp(`(${name})+`, 'gi');
 
+    const characterFound = datas.find((character) => character.name.match(regex));
+
+    console.log(characterFound);
+
     // Looping over all character and check if name matches the character submitted
-    for (const character of datas) {
-        const name = character.name;
-        
-        if (name.match(regex)) {
-            console.log(character.name);
-        }
-    }
+    // for (const character of datas) {
+    //     const name = character.name;
+    //     
+    //     if (name.match(regex)) {
+    //         console.log(character.name);
+    //     }
+    // }
 }
 
 getCharacters();
